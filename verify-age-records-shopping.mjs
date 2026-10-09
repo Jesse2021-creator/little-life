@@ -1,0 +1,21 @@
+import assert from 'node:assert/strict';
+import React from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
+import {createServer} from 'vite';
+import {normalizeLifeRecords,recordAge} from './src/lifeRecords.js';
+import {sortShopItems} from './src/shopping.js';
+import {syncTree,normalizeLife} from './src/lifeSystems.js';
+import {normalizeRealism} from './src/realism.js';
+const base=normalizeRealism(normalizeLife({name:'Alex Morgan',year:2028,age:30,country:'United States',gender:'Man',alive:true,money:10000,stats:{health:80,happiness:70,smarts:60,looks:65},family:{parents:[],siblings:[]},children:[],friends:[],assets:[],log:[{year:2026,text:'Started work',tag:'Work'},{year:2028,age:30,text:'Recent moment'}],savedAt:'10/8/2026'}));
+const snapshot=JSON.stringify(base),clean=normalizeLifeRecords(base);assert.equal(JSON.stringify(base),snapshot);assert.equal(clean.year,2028);assert.deepEqual(clean.log.map(e=>e.age),[28,30]);assert.ok(clean.log.every(e=>!Object.hasOwn(e,'year')));assert.equal(clean.savedAt,undefined);assert.equal(clean.savedAtAge,30);assert.equal(normalizeLifeRecords(clean),clean);assert.equal(recordAge({year:2026},base),28);assert.equal(recordAge({date:'Year 2026'},base),28);assert.equal(recordAge({age:18,year:2026},base),18);
+const tree=syncTree(clean);assert.equal(tree.familyTree[clean.characterId].history.length,2);const inherited=syncTree({...clean,characterId:'next',generationStartYear:2028,log:[{year:2028,age:18,text:'New generation'},...clean.log]});assert.deepEqual(inherited.familyTree.next.history.map(e=>e.text),['New generation']);const afterSave=normalizeLifeRecords(tree);assert.ok(afterSave.familyTree[clean.characterId].history.every(e=>!Object.hasOwn(e,'year')));
+const items=[{name:'Castle',price:5000000,category:'Homes'},{name:'Car',price:50000,category:'Cars'},{name:'Apartment',price:100000,category:'Homes'}];const original=JSON.stringify(items);assert.deepEqual(sortShopItems(items).map(i=>i.price),[50000,100000,5000000]);assert.deepEqual(sortShopItems(items,'Homes','descending').map(i=>i.name),['Castle','Apartment']);assert.equal(JSON.stringify(items),original);
+const server=await createServer({server:{middlewareMode:true},appType:'custom'});try{
+ const {outcomeChanges}=await server.ssrLoadModule('/src/OutcomeFeedback.jsx');assert.deepEqual(outcomeChanges(base,clean),[]);const lackingAge={...clean,log:[{year:2028,text:'New outcome'},...clean.log]};const converted=normalizeLifeRecords(lackingAge);assert.deepEqual(outcomeChanges(converted,normalizeLifeRecords(converted)),[]);
+ const Stats=(await server.ssrLoadModule('/src/FullStatsScreen.jsx')).default;const stats=renderToStaticMarkup(React.createElement(Stats,{game:{...clean,will:{signedYear:2026,signedAge:28,beneficiaries:[]},politicalTermEnds:2031},onClose:()=>{}}));assert.ok(!stats.includes('Year 2028'));assert.ok(!stats.includes('Term ending year'));assert.ok(stats.includes('Signed at age 28'));
+ const Career=(await server.ssrLoadModule('/src/CareerSystems.jsx')).default;const career=renderToStaticMarkup(React.createElement(Career,{game:clean,setGame:()=>{},money:10000,onMoney:()=>{},notify:()=>{}}));assert.ok(career.includes('aria-label="Career sections"'));for(const label of ['Jobs','Politics','Social Media','Family business'])assert.ok(career.includes(label));
+ const Club=(await server.ssrLoadModule('/src/NightlifeScreen.jsx')).default;const club=renderToStaticMarkup(React.createElement(Club,{game:{...clean,nightlife:{history:[{year:2026,club:'Lounge',cost:100}]}},setGame:()=>{}}));assert.ok(club.includes('Age 28'));assert.ok(!club.includes('2026'));
+ const Realism=(await server.ssrLoadModule('/src/RealismScreen.jsx')).default;const economy=renderToStaticMarkup(React.createElement(Realism,{game:{...clean,realism:{...clean.realism,economy:{...clean.realism.economy,history:[{year:2026,phase:'Stable',inflation:.02}]}}},initialTab:'Economy',setGame:()=>{}}));assert.ok(economy.includes('Age 28'));
+ await server.ssrLoadModule('/src/App.jsx');
+}finally{await server.close();}
+console.log('PASS: age-only journal migration, save dates, ancestor histories, feedback identity, chronological age labels, immutable price sorting and career/history rendering.');
