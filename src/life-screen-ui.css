@@ -1,0 +1,90 @@
+.app-shell .life-screen{color:var(--theme-text);padding:20px;gap:18px;font-size:17px;line-height:1.55;box-sizing:border-box}
+.app-shell .life-hero{display:flex;align-items:flex-start;gap:16px;padding:24px;border:1px solid var(--theme-border);border-radius:24px;background:linear-gradient(135deg,var(--theme-soft),var(--theme-surface));margin-bottom:20px;text-align:left}
+.app-shell .life-hero-icon{display:grid;place-items:center;flex:0 0 58px;height:58px;font-size:30px;border-radius:18px;background:var(--theme-surface);border:1px solid var(--theme-border)}
+.app-shell .life-hero h2{font-size:25px;line-height:1.2;margin:6px 0 10px;color:var(--theme-text)}
+.app-shell .life-hero p{margin:0;color:var(--theme-muted);font-size:17px}
+.app-shell .life-status{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.04em;padding:5px 10px;border-radius:30px;background:var(--theme-soft);color:var(--theme-accent);border:1px solid var(--theme-border)}
+.app-shell .life-screen section,.app-shell .company-salary-panel{padding:22px;border:1px solid var(--theme-border);border-radius:22px;background:var(--theme-surface);box-shadow:0 6px 20px #00000005;margin-bottom:16px}
+.app-shell .life-screen h3{font-size:21px;color:var(--theme-text);margin-top:0}
+.app-shell .life-screen p,.app-shell .company-salary-panel p{font-size:17px;color:var(--theme-muted);line-height:1.6}
+.app-shell .life-screen button,.app-shell .life-screen input,.app-shell .life-screen select,.app-shell .life-screen textarea,.app-shell .company-salary-panel input{font:inherit;border-radius:12px}
+.app-shell .life-screen button{padding:12px 16px;border:1px solid var(--theme-border);background:var(--theme-soft);color:var(--theme-text);font-weight:700}
+.app-shell .life-screen button:disabled{opacity:.45;cursor:not-allowed}
+.app-shell .life-screen progress{accent-color:var(--theme-accent);width:100%;height:10px}
+.app-shell .life-section-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:22px}
+.app-shell .life-section-tabs button{display:flex;align-items:center;gap:10px;text-align:left;min-width:0;background:var(--theme-surface)}
+.app-shell .life-section-tabs button b{flex:1;font-size:15px}
+.app-shell .life-section-tabs button.active{background:var(--theme-soft);border-color:var(--theme-accent);color:var(--theme-accent)}
+.app-shell .life-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:16px 0}
+.app-shell .life-metrics>div{display:flex;flex-direction:column;padding:16px;border-radius:16px;background:var(--theme-soft);border:1px solid var(--theme-border);min-width:0}
+.app-shell .life-metrics small{font-size:13px;color:var(--theme-muted)}
+.app-shell .life-metrics b{font-size:22px;color:var(--theme-text);overflow-wrap:anywhere}
+.app-shell .life-screen .realism-vitals{grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px}
+.app-shell .life-screen .realism-vitals>div{background:var(--theme-soft);border-color:var(--theme-border);padding:14px;border-radius:16px}
+.app-shell .life-screen .realism-vitals span,.app-shell .life-screen .realism-vitals b{font-size:15px;color:var(--theme-text)}
+.app-shell .life-screen select,.app-shell .life-screen input:not([type=checkbox]):not([type=range]),.app-shell .life-screen textarea,.app-shell .salary-input input{background:var(--theme-page);color:var(--theme-text);border:1px solid var(--theme-border);padding:12px;width:100%;height:auto;box-sizing:border-box}
+.app-shell .life-screen input[type=checkbox]{accent-color:var(--theme-accent);width:20px;height:20px}
+.app-shell .life-screen .tree-person{width:100%;background:var(--theme-surface);border-color:var(--theme-border);margin-bottom:10px;padding:18px}
+.app-shell .life-screen .tree-person small{font-size:15px;color:var(--theme-muted)}
+.app-shell .life-screen .development-actions{gap:10px;margin-top:18px;flex-wrap:wrap}
+.app-shell .life-screen .charity-donate{width:100%;background:var(--theme-accent);color:var(--theme-accent-text);font-size:18px;padding:16px}
+.app-shell .will-modal{background:var(--theme-surface);color:var(--theme-text);border:1px solid var(--theme-border);text-align:left;max-width:600px;width:calc(100vw - 32px);padding:26px;box-sizing:border-box}
+.app-shell .will-modal .life-hero{padding:18px;margin-top:12px}
+.app-shell .will-modal h3{font-size:21px;margin-top:24px}
+.app-shell .will-modal p,.app-shell .will-modal label{font-size:17px;line-height:1.6;color:var(--theme-muted)}
+.app-shell .will-modal .will-beneficiary{padding:16px;border-radius:16px;margin:10px 0;border:1px solid var(--theme-border);background:var(--theme-soft);gap:12px}
+.app-shell .will-modal .will-beneficiary b{font-size:18px;color:var(--theme-text)}
+.app-shell .will-modal .will-beneficiary small{font-size:14px;color:var(--theme-muted)}
+.app-shell .will-modal input,.app-shell .will-modal select,.app-shell .will-modal textarea{font:inherit;background:var(--theme-page);color:var(--theme-text);border:1px solid var(--theme-border);border-radius:12px;padding:12px;box-sizing:border-box;min-width:0}
+.app-shell .will-modal input[type=checkbox]{accent-color:var(--theme-accent);width:20px;height:20px;flex-shrink:0}
+.app-shell .will-modal .will-share input{width:80px}
+.app-shell .will-modal .will-total{padding:16px;border-radius:16px;background:var(--theme-soft);color:var(--theme-text);font-size:17px;gap:12px;flex-wrap:wrap}
+.app-shell .will-modal .will-total.valid{border:1px solid var(--theme-accent)}
+.app-shell .will-modal .will-total button,.app-shell .will-modal .family-confirm-actions button{font-size:17px;border-radius:12px;padding:12px 16px;border:1px solid var(--theme-border);background:var(--theme-soft);color:var(--theme-text)}
+.app-shell .will-modal .family-confirm-actions .confirm-new{background:var(--theme-accent);color:var(--theme-accent-text)}
+.app-shell .salary-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.app-shell .salary-heading h4{font-size:21px;margin:0;color:var(--theme-text)}
+.app-shell .salary-input{display:grid;gap:8px;font-size:17px;margin:18px 0;color:var(--theme-text)}
+.app-shell .company-salary-panel>small{font-size:14px;color:var(--theme-muted)}
+.app-shell .life-screen :focus-visible,.app-shell .will-modal :focus-visible,.app-shell .company-salary-panel :focus-visible{outline:2px solid var(--theme-accent);outline-offset:3px}
+@media(max-width:420px){.app-shell .life-screen{padding:14px}.app-shell .life-hero{padding:18px;gap:12px}.app-shell .life-hero-icon{flex-basis:44px;height:44px;font-size:25px}.app-shell .life-hero h2{font-size:23px}.app-shell .life-section-tabs{grid-template-columns:1fr}.app-shell .will-modal{padding:18px}.app-shell .will-modal .social-form-grid{grid-template-columns:1fr}.app-shell .will-modal .will-beneficiary{padding:12px}.app-shell .will-modal .will-share input{width:64px}}
+.app-shell .load-screen .load-header h2{font-size:26px;line-height:1.25}
+.app-shell .load-screen .load-header .eyebrow{font-size:13px}
+.app-shell .load-screen .saved-life{padding:18px;gap:14px;border-radius:18px;margin-bottom:14px;flex-wrap:wrap}
+.app-shell .load-screen .saved-avatar{width:54px;height:54px;flex:0 0 54px}
+.app-shell .load-screen .saved-info{gap:7px;flex:1 1 140px}
+.app-shell .load-screen .saved-info b{font-size:21px;line-height:1.3;overflow-wrap:anywhere}
+.app-shell .load-screen .saved-info small{font-size:16px;line-height:1.5;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+.app-shell .load-screen .load-life-button{font-size:17px;height:auto;min-height:44px;padding:10px 18px;border-radius:12px;flex-shrink:0}
+.app-shell .load-screen .delete-save{width:44px;height:44px;flex:0 0 44px}
+.app-shell .load-screen .delete-save svg{width:20px;height:20px}
+.app-shell .load-screen .empty-saves h3{font-size:25px;line-height:1.3}
+.app-shell .load-screen .empty-saves p{font-size:17px;line-height:1.65;max-width:340px}
+.app-shell .load-screen .empty-saves button{font-size:17px;height:auto;min-height:46px;padding:12px 18px;gap:8px;border-radius:12px}
+@media(max-width:420px){.app-shell .load-screen .saved-life{display:grid;grid-template-columns:54px minmax(0,1fr) 44px;padding:16px;gap:12px}.app-shell .load-screen .saved-info{grid-column:2 / 4}.app-shell .load-screen .load-life-button{grid-column:2}.app-shell .load-screen .delete-save{grid-column:3}.app-shell .load-screen .saved-info b{font-size:20px}}
+.app-shell .game-nav>button:not(.nav-age){font-size:12px;gap:6px}
+.app-shell .game-nav>button:not(.nav-age)>svg{width:24px;height:24px}
+.app-shell .game-nav .nav-age-pair>.nav-age-down{width:34px;height:34px;right:calc(50% - 32px);bottom:0;border-width:2px}
+.app-shell .game-nav .nav-age-pair>.nav-age-down svg{width:20px;height:20px}
+@media(max-width:760px){.app-shell .game-nav>button:not(.nav-age){font-size:11px;gap:5px}.app-shell .game-nav>button:not(.nav-age)>svg{width:23px;height:23px}}
+@media(max-width:360px){.app-shell .game-nav>button:not(.nav-age){font-size:10px}}
+.app-shell .game-nav .nav-age-pair>.nav-age{width:72px;height:72px;transform:translateY(-10px)}
+.app-shell .game-nav .nav-age .age-orb{width:72px!important;height:72px!important;min-width:72px;min-height:72px;max-width:72px;max-height:72px;flex-basis:72px}
+.app-shell .game-nav .nav-age .age-orb b{font-size:23px;line-height:25px}
+.app-shell .game-nav .nav-age .age-orb small{font-size:11px;line-height:13px}
+.app-shell .game-nav .nav-age-pair>.nav-age-down{right:calc(50% - 37px)}
+.app-shell .bottom-more-screen .navigation-child-content{padding-inline:10px}
+.app-shell .bottom-more-screen .navigation-child-content>.fullscreen-content{padding-inline:0}
+.app-shell .bottom-more-screen .navigation-child-content .development-screen{padding-inline:6px;box-sizing:border-box}
+body:has(.home-layout){height:100dvh;min-height:0;min-width:0;overflow:hidden;overscroll-behavior:none}
+body:has(.home-layout) #root{height:100%;overflow:hidden}
+.app-shell:has(>.home-layout){height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+.app-shell:has(>.home-layout)>.topbar{flex:0 0 auto;width:100%}
+.app-shell .home-layout{flex:1;min-height:0;height:auto;width:100%;overflow:hidden;padding:12px 16px calc(104px + env(safe-area-inset-bottom))}
+.app-shell .home-layout .home-content{min-height:0;height:100%;width:100%}
+.app-shell .home-layout .home-log-scroll{overflow-y:auto;overscroll-behavior:contain}
+.app-shell .home-wellbeing .stat-label{font-size:14px;line-height:1.4;gap:6px}
+.app-shell .home-wellbeing .stat-icon{font-size:18px}
+.app-shell .home-wellbeing .stat-value{font-size:16px}
+.app-shell .home-wellbeing .stat-value small{font-size:12px}
+@media(max-width:650px){.app-shell .home-layout{padding:8px 10px calc(104px + env(safe-area-inset-bottom))}}

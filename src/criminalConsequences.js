@@ -1,0 +1,4 @@
+export function recordSeverity(g,international=false){const records=international?[...(g.criminalRecord||[]),...Object.entries(g.criminalRecordsByCountry||{}).filter(([c])=>c!==g.country).flatMap(([,r])=>r)]:g.criminalRecord||[];return records.reduce((n,r)=>n+(r.juvenile?.5:/murder|assault|robbery|traffick|fraud|burglary/i.test(r.charge||String(r))?2:1),0);}
+export function recordJobChance(g,chance){const severity=recordSeverity(g);return severity?Math.max(.015,Math.min(.18,chance/(1+severity*4))):chance;}
+export function recordVisaChance(g,chance){const severity=recordSeverity(g,true);return severity?Math.max(.01,Math.min(.15,chance/(1+severity*5))):chance;}
+export function localizeCriminalRecord(g,country){return {...g,criminalRecordsByCountry:{...g.criminalRecordsByCountry,[g.country]:g.criminalRecord||[]},criminalRecord:g.criminalRecordsByCountry?.[country]||[],courtCases:[],pendingInterview:null};}

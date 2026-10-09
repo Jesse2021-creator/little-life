@@ -1,0 +1,14 @@
+import React from 'react';
+import {PersonPortrait} from './RelationshipPortrait.jsx';
+import {formatMoney} from './money.js';
+import {wealthLabel} from './npcEconomy.js';
+export function FamilyRelationshipGroups({family,children,renderCard}){
+  const groups=[['Parents',family.parents||[]],['Siblings',family.siblings||[]],['Step-parents',family.stepParents||[]],['Children',children||[]]];
+  const seen=new Set();const memories=[...groups.flatMap(([,people])=>people),...(family.memorials||[])].filter(p=>p.alive===false&&!seen.has(p.id)&&seen.add(p.id));
+  return <div className="family-groups">{groups.map(([title,people])=>{const living=people.filter(p=>p.alive!==false);return living.length?<section className="family-subgroup" key={title} aria-label={title}><h4>{title}<span>{living.length}</span></h4><div className="relationship-grid">{living.map(person=>renderCard(person,'family'))}</div></section>:null;})}{memories.length>0&&<section className="family-subgroup" aria-label="In Memory"><h4>In Memory<span>{memories.length}</span></h4><div className="relationship-grid">{memories.map(person=>renderCard(person,'family'))}</div></section>}</div>;
+}
+export function RelationshipCard({person,onOpen}){
+  const deceased=person.alive===false;
+  return <article className={`relationship-card compact-relationship-card ${deceased?'relationship-card-deceased':''}`}><button className="relationship-card-top profile-open-button" onClick={()=>!deceased&&onOpen(person)} disabled={deceased} aria-label={`View ${person.name}'s profile and interactions`}><span className="relationship-avatar"><PersonPortrait person={person}/></span><div className="relationship-person-copy"><b>{person.name}</b><small>{person.relationshipLabel||person.role} · {deceased?'Died at age':'Age'} {person.age}</small>{!deceased&&<small>{person.job||'Occupation not recorded'} · {person.country||'Location pending'}</small>}</div>{deceased?<span>🕯️</span>:<span className="closeness-score">{person.closeness??50}%</span>}</button>{!deceased&&<div className="compact-bond"><small>Relationship</small><div className="closeness-track"><i style={{width:`${person.closeness??50}%`}}/></div></div>}</article>;
+}
+export function NpcFinancialDetails({person}){return <div className="npc-financial-details"><div><small>Location</small><b>{person.country||'Location not recorded'}</b></div><div><small>Occupation</small><b>{person.job||person.occupation||person.personalCareer||'Not recorded'}</b>{person.familyEmployment&&<span>{person.familyEmployment.companyName}</span>}</div>{person.age>=16&&<div><small>Personal wealth</small><b>{formatMoney(person.personalWealth||0)}</b><span>{wealthLabel(person.personalWealth||0)}</span></div>}{person.age>=18&&<div><small>{person.job==='Retired'?'Annual pension':'Annual salary'}</small><b>{formatMoney(person.annualSalary||0)}</b></div>}</div>;}

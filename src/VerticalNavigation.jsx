@@ -1,0 +1,26 @@
+import React,{useEffect,useRef,useState} from 'react';
+import {ChevronRight} from 'lucide-react';
+import ScreenHeader from './ScreenHeader.jsx';
+export const careerMenuItems=[
+ ['Sports Career','🏅','Teams, training, contracts, transfers and retirement'],
+ ['Jobs','💼','Browse positions and apply for work'],['Work life','📋','Interviews, performance and workplace relationships'],['University','🎓','Courses, applications and campus life'],['Quick gigs','🧰','Find a short task for immediate pay'],['Start a business','🌱','Launch a company or pitch investors'],['Acquire a business','🤝','Browse businesses for sale'],['My Businesses','🏢','Manage operations, staff and your board'],['Politics','🗳️','Campaign for office and serve your community'],['Social Media','📱','Create content and grow your audience'],['Retirement','🌅','Plan pensions and retirement'],['Family business','👨‍👩‍👧','Plan the next generation of your company'],
+].map(([id,icon,description])=>({id,title:id,icon,description}));
+export const moreMenuItems=[
+ ['Housing & Daily Life','🏡','Neighbourhoods, roommates, renovations and commuting'],['Childhood','🧒','Rules, allowance and academic strengths'],['Life Ambitions','✨','Choose your own measure of a meaningful life'],['Life Timeline','📖','Memories, milestones and photos across generations'],
+ ['Achievements','🏆','Difficult goals and milestones across generations'],['Activities','✨','Hobbies, outdoor activities and nightlife'],['Child Support','👶','Support, custody and arrears when parents are apart'],['Real Life','🧭','Schedule, decisions, health, relationships, home and work'],['Life & Legacy','🌳','Skills, traits, family tree, budgets and challenges'],['Write Your Will','📜','Choose who inherits your estate'],['Donate to Charity','💛','Support local education and essential services'],['Vacations','🌍','Choose a destination and plan a getaway'],['School','📚','Education and school activities'],['Investments','📈','Markets, holdings and trading'],['Banking','🏦','Accounts, savings and transfers'],['Loans','💳','Borrowing, repayments and credit'],['Crimes','🎭','Risky choices and their consequences'],['Law & Justice','⚖️','Legal matters and court history'],['Emigrate','🧳','Move to another country'],['Family & Future','🏡','Marriage, insurance, education and legacy'],['Casino','🎲','Casino games, sports wagers and lottery'],['Dating','💞','Meet people and find a connection'],['Hospital','🩺','Health care, tests and procedures'],
+].map(([id,icon,description])=>({id,title:id,icon,description})).sort((a,b)=>{const order=id=>id==='Dating'?-1:id==='Real Life'?100:id==='Life & Legacy'?101:id==='Write Your Will'?102:0;return order(a.id)-order(b.id);});
+export function VerticalMenu({items,onSelect,label}){return <nav className="vertical-menu" aria-label={label}>{items.map(item=><button className="vertical-menu-row" key={item.id} disabled={Boolean(item.disabled)} onClick={()=>onSelect(item.id)}><span className="vertical-menu-icon" aria-hidden="true">{item.icon}</span><span className="vertical-menu-copy"><b>{item.title}</b><small>{item.description}</small></span><ChevronRight className="vertical-menu-chevron" aria-hidden="true"/></button>)}</nav>;}
+export function SlideChildPage({title,eyebrow='MORE',onBack,onClose,children,animate=true}){
+  const [leaving,setLeaving]=useState(false);const timer=useRef();const page=useRef();const priorFocus=useRef();
+  useEffect(()=>{priorFocus.current=document.activeElement;page.current?.querySelector('header button')?.focus();return ()=>{clearTimeout(timer.current);if(priorFocus.current?.isConnected)priorFocus.current.focus();};},[]);
+  const exit=action=>{if(leaving)return;if(!animate){action();return;}setLeaving(true);const delay=window.matchMedia?.('(prefers-reduced-motion: reduce)').matches?0:220;timer.current=setTimeout(action,delay);};
+  const onKeyDown=event=>{
+    if(event.key==='Escape'&&!document.querySelector('.dialog-backdrop,.career-scrim,.investment-sale-backdrop,.outcome-backdrop')){event.stopPropagation();exit(onBack);}
+    if(event.key!=='Tab')return;
+    const controls=[...page.current.querySelectorAll('button:not(:disabled),input:not(:disabled),select:not(:disabled),textarea:not(:disabled),a[href]')].filter(element=>element.getClientRects().length);
+    const first=controls[0],last=controls[controls.length-1];
+    if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+  };
+  return <section ref={page} className={`navigation-child-page ${animate?(leaving?'navigation-slide-out':'navigation-slide-in'):''}`} aria-label={`${title} section`} onKeyDown={onKeyDown}><ScreenHeader title={title} eyebrow={eyebrow} onBack={()=>exit(onBack)} onClose={()=>exit(onClose||onBack)} backLabel={`Back to ${eyebrow==='CAREER'?'Career':eyebrow==='INVESTMENTS'?'Investments':'More'} menu`}/><div className="navigation-child-content">{children}</div></section>;
+}
+export function MoreSectionPage({bottom,active,onBack,onClose,children}){if(!bottom)return children;if(!active)return null;return <SlideChildPage key={active} title={active} animate={active!=='Investments'} onBack={onBack} onClose={onClose}>{children}</SlideChildPage>;}
